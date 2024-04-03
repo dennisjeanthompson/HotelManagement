@@ -1,0 +1,334 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using HotelSytem;
+
+namespace HotelSytem{
+
+public static class Program
+{
+	public static void Main()
+	{
+            Hotel goz = new Hotel("Japan","Satan");
+			MediumRoom rom = new MediumRoom(true,200,1);
+			SmallRoom rom1 = new SmallRoom(true,200,2);
+			LargeRoom rom2 = new LargeRoom(true,300,3);
+			rom1.romtyper();
+			goz.AddRoom(rom);
+			goz.AddRoom(rom1);
+            goz.DisplayAvailableRooms();
+			Console.WriteLine("Choose if Guest or Receptionist");
+			Console.WriteLine("Guest(1)  Receptionist(2)");
+			double kil;
+			string ant;
+			ant = Console.ReadLine();
+			double.TryParse(ant,out kil);
+			
+			switch(kil)
+			{
+			case 1:
+			
+		string name ;
+			string email;
+			string address;
+			int phone;
+		Console.WriteLine("Type you're Name:");
+	name = Console.ReadLine();
+		
+	Console.WriteLine("Type you're Email");
+		
+	email= Console.ReadLine();
+	
+		
+	string killerz;
+	Console.WriteLine("Type PhoneNumber");
+			
+			killerz =  Console.ReadLine();
+			
+			phone = Convert.ToInt32(killerz);
+		
+		
+	Console.WriteLine("Type you're Adress");
+		
+			address = Console.ReadLine();
+			
+			
+			
+			
+			
+			
+		
+			
+			break;
+			
+			case 2:
+		
+		
+	string nameR ;
+			string emailR;
+			string addressR;
+			int phoneR;
+		Console.WriteLine("Type you're Name:");
+	nameR = Console.ReadLine();
+		
+	Console.WriteLine("Type you're Email");
+		
+	emailR= Console.ReadLine();
+	
+		
+	string killerzR;
+	Console.WriteLine("Type PhoneNumber");
+			
+			killerzR =  Console.ReadLine();
+			
+			phoneR = Convert.ToInt32(killerzR);
+		
+		
+	Console.WriteLine("Type you're Adress");
+		
+			addressR = Console.ReadLine();
+			
+			
+			
+			
+			
+			
+		
+			
+			
+		
+		
+		
+		break;
+
+default:
+
+
+
+
+break;
+  // Receptionist ba = new Receptionist(address,email,name,phone);
+ Guest ba = new Guest(address,email,name,phone);
+ 
+Receptionist baS = new Receptionist(addressR,emailR,nameR,phoneR);
+
+}
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+	}
+	
+	
+}
+
+public class Guest
+{
+        
+		string Name{get;set;}
+		
+		string Address{get;set;}
+		string Email{get;set;}
+		int Phone{get;set;}
+		private static int s_ID=1234;
+		private string ID {get;set;}
+		
+		
+        
+    public Guest(string name,string address,string email,int phone)
+	{
+        Name = name;
+		Address= address;
+		Email= email;
+		Phone= phone;
+		ID = s_ID++.ToString();
+		
+		
+    }
+    
+    public void BookRoom()
+    {
+        
+    }
+	
+	
+}
+public class Receptionist:Guest
+{
+        
+		
+		
+    public Receptionist(string name,string address,string email,int phone):base(name,address,email,phone)
+	{
+        
+		
+		
+    }
+}
+
+
+public abstract  class Room
+{
+public    int Price {get;set;}
+public        bool isAvailable{get;set;}
+		public TypeOfRoom typerom{get;set;}
+	public	int RoomNumber{get;set;}
+		
+    public Room(bool isavailable,TypeOfRoom typeromm,int price,int roomNumber)
+	{
+	    Price = price;
+isAvailable= isavailable;
+typerom = typeromm;
+ RoomNumber = roomNumber;
+
+    }
+	
+	
+	public TypeOfRoom romtyper()
+	{
+        
+		return typerom;
+		
+		
+    }
+	 public virtual string DisplayRoomDetailz()
+    {
+        return $"Price: {Price} RoomNumber: {RoomNumber}";
+    }
+	
+	
+	public virtual bool getdetsil()
+	{
+        return isAvailable;
+    }
+}
+
+public  class MediumRoom:Room
+{
+    public MediumRoom(bool isavailable,int price,int roomNumber):base(isavailable,TypeOfRoom.MediumRoom,price,roomNumber)
+	{
+        
+    }
+   
+	
+	public override bool getdetsil()
+	{
+        return base.getdetsil();
+    }
+	
+}
+
+public  class SmallRoom:Room
+{
+    public SmallRoom(bool isavailable,int price,int roomNumber):base(isavailable,TypeOfRoom.Smallroom,price,roomNumber)
+	{
+        
+    }
+	
+public override bool getdetsil()
+	{
+        return base.getdetsil();
+    }
+	
+}
+public  class LargeRoom:Room
+{
+    public LargeRoom(bool isavailable,int price,int roomNumber):base(isavailable,TypeOfRoom.LargeRoom,price,roomNumber)
+	{
+        
+    }
+	
+public override bool getdetsil()
+	{
+        return base.getdetsil();
+    }
+	
+	
+	
+}
+
+
+
+
+public class Hotel
+{
+    string Location{get;set;}
+    string HotelName{get;set;}
+  public Hotel(string location,string hotelname)
+  {
+      Location = location;
+      HotelName = hotelname;
+  }
+	List<Room> availablerooms = new List<Room>();
+
+	public void AddRoom(Room room)
+	{
+        availablerooms.Add(room);
+    }
+	
+public void 	DisplayAvailableRooms()
+{
+   foreach(Room room  in availablerooms )
+   {
+     
+       
+       Console.WriteLine($"get details {room.getdetsil()} {room.romtyper()} {room.DisplayRoomDetailz()} ");
+       
+       
+   }
+   
+   
+   
+   
+   
+}
+	
+
+	
+	
+	
+}
+
+
+
+public enum TypeOfRoom
+{
+    Smallroom,
+	MediumRoom,
+	LargeRoom
+	
+}
+
+public class Hotel1:Hotel
+{
+    
+    public Hotel1(string location,string hotelname):base(location,hotelname)
+    
+        {
+            
+        }
+        
+        
+}
+
+public class Hotel2:Hotel
+{
+    public Hotel2(string location,string hotelname):base(location,hotelname)
+    {
+        
+    }
+}
+
+
+
+
+}
